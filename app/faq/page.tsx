@@ -12,6 +12,7 @@ const categories = [
   { id: "general", label: "General" },
   { id: "platforms", label: "Platforms" },
   { id: "funding", label: "Funding" },
+  { id: "equities", label: "Equities" },
   { id: "payouts", label: "Payouts" },
   { id: "rules", label: "Rules" },
 ] as const;

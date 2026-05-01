@@ -54,13 +54,23 @@ export const platforms: Platform[] = [
     id: "tradovate",
     name: "Tradovate",
     description:
-      "Support coming soon. We are expanding platform options while traders can start now on our currently supported environments.",
+      "Tradovate support is coming soon for futures traders. In the meantime, you can start trading futures today on Rithmic.",
     goodFor: "Futures traders who prefer Tradovate's cloud-based environment",
     marketType: "Futures",
     whyItMatters:
-      "Commission-free futures trading with a modern cloud-native platform — on the roadmap for Hybrid Funding.",
+      "Commission-free, cloud-native futures execution — arriving soon on Hybrid Funding alongside Rithmic.",
     comingSoon: true,
     comingSoonNote: "Tradovate support coming soon",
+  },
+  {
+    id: "gooeypro",
+    name: "GooeyPro",
+    description:
+      "Purpose-built equities trading platform powering our Single Session Equities program with Nasdaq-sourced liquidity.",
+    goodFor: "Day traders trading S&P 100 equities within a single U.S. session",
+    marketType: "Equities",
+    whyItMatters:
+      "Direct Nasdaq pricing, fast execution, and the only platform available for Hybrid Funding's Single Session Equities program.",
   },
 ];
 

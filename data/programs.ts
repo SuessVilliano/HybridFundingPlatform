@@ -280,3 +280,90 @@ export const withdrawalRules = {
   processing: "1–3 business days",
   postWithdrawal: "Max drawdown locks at starting balance",
 };
+
+export type EquitiesPricing = {
+  size: string;
+  price: string;
+};
+
+export const equitiesProgram = {
+  id: "equities",
+  name: "Single Session Equities",
+  slug: "equities",
+  description:
+    "A single-session day trading program built for traders who open and close all positions within the same U.S. equities session.",
+  highlight: "S&P 100 day trading on GooeyPro — built for disciplined intraday traders",
+  profitSplit: "80%",
+  profitSplitPremium: "90% (with add-on)",
+  market: "S&P 100 Equities",
+  platform: "GooeyPro",
+  liquidity: "Nasdaq",
+  leverage: "2:1",
+  session: "09:30 ET – 15:55 ET",
+  hardCloseTime: "15:55 ET",
+  commissions: "$0.02 / share / side, $0.50 minimum per transaction",
+  targets: {
+    profitTarget: "10% (Evaluation phase)",
+    maxDrawdown: "3.0% trailing (closed balance only — hard breach)",
+    dailyLossLimit: "2.5% trailing intraday (hard breach)",
+    dailyProfitCap: "2.5% (Evaluation only — soft breach)",
+    consistencyScore: "25% (Funded phase only)",
+    minProfitableDays: "3 days @ 0.50% — Eval & Funded",
+    minHoldTime: "1 minute",
+    overnightHolding: "No — all positions must be closed by 15:55 ET",
+  },
+  payouts: {
+    profitSplit: "80/20",
+    frequency: "First payout after 14 days, then every 14 days",
+    minimumWithdrawal: "$100",
+    lockUponPayout: "Enabled by default — waiver available as add-on",
+    payoutOnBreach: "No, unless add-on purchased",
+  },
+  rules: [
+    "All positions closed by 15:55 ET",
+    "S&P 100 equity products only",
+    "2:1 leverage",
+    "GooeyPro platform only",
+    "Min 1-minute hold time",
+    "Min 3 profitable trading days @ 0.50%",
+  ],
+  pricing: [
+    { size: "$5,000", price: "$48" },
+    { size: "$10,000", price: "$88" },
+    { size: "$25,000", price: "$228" },
+  ] as EquitiesPricing[],
+  planRules: [
+    { rule: "Profit Target (10%)", values: { "$5,000": "$500", "$10,000": "$1,000", "$25,000": "$2,500" } },
+    { rule: "Daily Drawdown (2.5% Trailing, Intraday)", values: { "$5,000": "$125", "$10,000": "$250", "$25,000": "$625" } },
+    { rule: "Daily Profit Cap (2.5% Eval Only — Soft Breach)", values: { "$5,000": "$125", "$10,000": "$250", "$25,000": "$625" } },
+    { rule: "Max Drawdown (3.0% Trailing — Hard Breach)", values: { "$5,000": "$150", "$10,000": "$300", "$25,000": "$750" } },
+  ],
+};
+
+export const equitiesAddOns = [
+  {
+    name: "90% Profit Share Upgrade",
+    cost: "+15% of plan price",
+    description: "Increases your funded profit share from 80% to 90%.",
+  },
+  {
+    name: "33% Consistency Threshold",
+    cost: "+20% of plan price",
+    description: "Raises the funded consistency cap from 25% to 33% of total profits per day.",
+  },
+  {
+    name: "50% Consistency Threshold",
+    cost: "+35% of plan price",
+    description: "Raises the funded consistency cap from 25% to 50% of total profits per day.",
+  },
+  {
+    name: "Payout-on-Breach (Payout Protector)",
+    cost: "+25% of plan price",
+    description: "Protects your eligible profit share in a Funded account if a hard breach occurs.",
+  },
+  {
+    name: "Lock-Upon-Payout Waiver",
+    cost: "+25% of plan price",
+    description: "Disables the post-payout Max Drawdown lock so trailing continues from your high-water mark.",
+  },
+];
