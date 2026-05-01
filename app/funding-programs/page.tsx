@@ -5,11 +5,19 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion";
 import { FooterCTA } from "@/components/footer-cta";
-import { programs, addOns, futuresPayouts, futuresContractLimits, withdrawalRules } from "@/data/programs";
+import {
+  programs,
+  addOns,
+  futuresPayouts,
+  futuresContractLimits,
+  withdrawalRules,
+  equitiesProgram,
+  equitiesAddOns,
+} from "@/data/programs";
 import { siteCopy } from "@/data/site-copy";
 import type { Program } from "@/data/programs";
 
-type MarketTab = "forex" | "crypto" | "futures";
+type MarketTab = "forex" | "crypto" | "futures" | "equities";
 
 export default function FundingProgramsPage() {
   const { fundingProgramsPage } = siteCopy;
@@ -31,8 +39,8 @@ export default function FundingProgramsPage() {
 
           {/* Market tabs */}
           <FadeIn delay={0.15} className="mt-10 flex justify-center">
-            <div className="inline-flex rounded-lg border border-border bg-card p-1">
-              {(["forex", "crypto", "futures"] as const).map((tab) => (
+            <div className="inline-flex flex-wrap justify-center rounded-lg border border-border bg-card p-1 gap-1">
+              {(["forex", "crypto", "futures", "equities"] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveMarket(tab)}
@@ -55,6 +63,8 @@ export default function FundingProgramsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {activeMarket === "futures" ? (
             <FuturesSection />
+          ) : activeMarket === "equities" ? (
+            <EquitiesSection />
           ) : (
             <StaggerContainer staggerDelay={0.1} className="space-y-12">
               {programs
@@ -81,11 +91,22 @@ export default function FundingProgramsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-              Optional Add-Ons
+              {activeMarket === "equities" ? "Equities Add-Ons" : "Optional Add-Ons"}
             </h2>
+            {activeMarket === "equities" && (
+              <p className="mt-3 text-sm text-muted">
+                Available at checkout for Single Session Equities plans.
+              </p>
+            )}
           </FadeIn>
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {addOns.map((addon) => (
+          <StaggerContainer
+            className={`grid grid-cols-1 ${
+              activeMarket === "equities"
+                ? "sm:grid-cols-2 lg:grid-cols-3 max-w-5xl"
+                : "sm:grid-cols-2 max-w-2xl"
+            } gap-6 mx-auto`}
+          >
+            {(activeMarket === "equities" ? equitiesAddOns : addOns).map((addon) => (
               <StaggerItem key={addon.name}>
                 <div className="rounded-xl border border-border bg-card p-6">
                   <h3 className="text-lg font-semibold text-foreground mb-1">
@@ -281,6 +302,182 @@ function ProgramDetailCard({
   );
 }
 
+function EquitiesSection() {
+  const accountSizes = equitiesProgram.pricing.map((p) => p.size);
+
+  return (
+    <FadeIn className="space-y-8">
+      <div id={equitiesProgram.slug} className="rounded-xl border border-border bg-card overflow-hidden scroll-mt-24">
+        <div className="p-6 sm:p-8 border-b border-border">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <span className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent mb-3">
+                Single Session Day Trading
+              </span>
+              <h3 className="text-2xl font-bold text-foreground">
+                {equitiesProgram.name}
+              </h3>
+              <p className="text-sm text-muted mt-1 max-w-2xl">
+                {equitiesProgram.description}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-muted">Profit Split</p>
+              <p className="text-xl font-bold text-foreground">
+                {equitiesProgram.profitSplit}
+              </p>
+              <p className="text-xs text-accent">{equitiesProgram.profitSplitPremium}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Snapshot */}
+        <div className="px-6 sm:px-8 py-4 border-b border-border bg-background/30">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div>
+              <p className="text-xs text-muted">Market</p>
+              <p className="text-sm font-semibold text-foreground">{equitiesProgram.market}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted">Platform</p>
+              <p className="text-sm font-semibold text-foreground">{equitiesProgram.platform}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted">Leverage</p>
+              <p className="text-sm font-semibold text-foreground">{equitiesProgram.leverage}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted">Trading Session</p>
+              <p className="text-sm font-semibold text-foreground">{equitiesProgram.session}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Pricing */}
+        <div className="px-6 sm:px-8 py-6">
+          <p className="text-sm font-semibold text-foreground mb-3">Plan Pricing</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 text-xs font-medium text-muted uppercase tracking-wider">
+                    Account Size
+                  </th>
+                  <th className="text-right py-3 text-xs font-medium text-muted uppercase tracking-wider">
+                    Entry Fee
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {equitiesProgram.pricing.map((tier) => (
+                  <tr key={tier.size} className="border-b border-border/50 last:border-0">
+                    <td className="py-3 text-foreground font-medium">{tier.size}</td>
+                    <td className="py-3 text-right text-foreground font-semibold">{tier.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Plan Rules table */}
+        <div className="px-6 sm:px-8 py-6 border-t border-border">
+          <p className="text-sm font-semibold text-foreground mb-3">Plan Rules by Account Size</p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 text-xs font-medium text-muted uppercase tracking-wider">Rule</th>
+                  {accountSizes.map((size) => (
+                    <th key={size} className="text-right py-3 text-xs font-medium text-muted uppercase tracking-wider">
+                      {size}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {equitiesProgram.planRules.map((row) => (
+                  <tr key={row.rule} className="border-b border-border/50 last:border-0">
+                    <td className="py-3 text-foreground font-medium">{row.rule}</td>
+                    {accountSizes.map((size) => (
+                      <td key={size} className="py-3 text-right text-foreground">
+                        {row.values[size as keyof typeof row.values]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Targets / additional rules */}
+        <div className="px-6 sm:px-8 py-4 border-t border-border bg-background/30">
+          <p className="text-sm font-semibold text-foreground mb-3">Program Targets & Limits</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <RuleRow label="Profit Target" value={equitiesProgram.targets.profitTarget} />
+            <RuleRow label="Max Drawdown" value={equitiesProgram.targets.maxDrawdown} />
+            <RuleRow label="Daily Loss Limit" value={equitiesProgram.targets.dailyLossLimit} />
+            <RuleRow label="Daily Profit Cap" value={equitiesProgram.targets.dailyProfitCap} />
+            <RuleRow label="Consistency Score" value={equitiesProgram.targets.consistencyScore} />
+            <RuleRow label="Min Profitable Days" value={equitiesProgram.targets.minProfitableDays} />
+            <RuleRow label="Min Hold Time" value={equitiesProgram.targets.minHoldTime} />
+            <RuleRow label="Overnight Holding" value={equitiesProgram.targets.overnightHolding} />
+          </div>
+        </div>
+
+        {/* Payouts */}
+        <div className="px-6 sm:px-8 py-4 border-t border-border">
+          <p className="text-sm font-semibold text-foreground mb-3">Payout Details</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <RuleRow label="Profit Split" value={equitiesProgram.payouts.profitSplit} />
+            <RuleRow label="Frequency" value={equitiesProgram.payouts.frequency} />
+            <RuleRow label="Minimum Withdrawal" value={equitiesProgram.payouts.minimumWithdrawal} />
+            <RuleRow label="Lock Upon Payout" value={equitiesProgram.payouts.lockUponPayout} />
+            <RuleRow label="Payout on Breach" value={equitiesProgram.payouts.payoutOnBreach} />
+            <RuleRow label="Commissions" value={equitiesProgram.commissions} />
+          </div>
+        </div>
+
+        {/* Quick rule chips */}
+        <div className="px-6 sm:px-8 py-4 border-t border-border bg-background/30">
+          <p className="text-xs font-medium text-muted mb-2">Key Rules</p>
+          <div className="flex flex-wrap gap-2">
+            {equitiesProgram.rules.map((rule) => (
+              <span
+                key={rule}
+                className="inline-flex items-center rounded-full bg-border/50 px-3 py-1 text-xs text-muted"
+              >
+                {rule}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Platform */}
+        <div className="px-6 sm:px-8 py-4 border-t border-border">
+          <p className="text-xs font-medium text-muted mb-2">Available Platform</p>
+          <span className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+            {equitiesProgram.platform}
+          </span>
+          <p className="mt-3 text-xs text-muted">
+            Liquidity, pricing, and execution are sourced and provided directly from {equitiesProgram.liquidity}.
+          </p>
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
+
+function RuleRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between gap-4 border-b border-border/50 pb-2 last:border-0 last:pb-0">
+      <span className="text-muted">{label}</span>
+      <span className="text-foreground font-medium text-right">{value}</span>
+    </div>
+  );
+}
+
 function FuturesSection() {
   const futuresProgram = programs.find((p) => p.futuresPricing && p.futuresPricing.length > 0);
 
@@ -379,9 +576,17 @@ function FuturesSection() {
         {/* Platform */}
         <div className="px-6 sm:px-8 py-4 border-t border-border">
           <p className="text-xs font-medium text-muted mb-2">Platform</p>
-          <span className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
-            Rithmic
-          </span>
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+              Rithmic
+            </span>
+            <span className="inline-flex items-center rounded-full bg-warning/20 px-3 py-1 text-xs font-medium text-warning">
+              Tradovate — Coming Soon
+            </span>
+          </div>
+          <p className="mt-3 text-xs text-muted">
+            Tradovate support is on the roadmap. Futures traders can start today on Rithmic.
+          </p>
         </div>
       </div>
     </FadeIn>

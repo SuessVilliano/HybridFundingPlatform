@@ -20,7 +20,7 @@ export const siteCopy = {
   hero: {
     headline: "Get Funded. Get Paid. Scale With Confidence.",
     subheadline:
-      "Trade with flexible funding models across cTrader, Match-Trader, DXtrade, and Rithmic for futures. Hybrid Funding is designed for serious traders who want a real path to funded accounts and payouts.",
+      "Trade forex, crypto, futures, and S&P 100 equities with flexible funding models. Trade today on cTrader, Match-Trader, DXtrade, Rithmic, and GooeyPro — with Tradovate coming soon for futures.",
     primaryCta: { label: "View Funding Programs", href: "/funding-programs" },
     secondaryCta: { label: "See How It Works", href: "/how-it-works" },
   },
@@ -29,9 +29,9 @@ export const siteCopy = {
     items: [
       { label: "One-Time Entry Fees", icon: "receipt" },
       { label: "Up to 90% Profit Split", icon: "trending-up" },
-      { label: "Multiple Platform Options", icon: "layers" },
-      { label: "Futures via Rithmic", icon: "bar-chart" },
-      { label: "Clear Evaluation Paths", icon: "target" },
+      { label: "Forex • Crypto • Futures • Equities", icon: "layers" },
+      { label: "S&P 100 Equities on GooeyPro", icon: "bar-chart" },
+      { label: "Tradovate Coming Soon", icon: "target" },
       { label: "Trader-Focused Models", icon: "users" },
     ],
   },
@@ -60,7 +60,7 @@ export const siteCopy = {
       {
         title: "Platform Flexibility",
         description:
-          "Trade across cTrader, Match-Trader, DXtrade, and Rithmic for futures.",
+          "Trade across cTrader, Match-Trader, DXtrade, Rithmic for futures, and GooeyPro for equities. Tradovate coming soon.",
         icon: "monitor",
       },
     ],
@@ -76,7 +76,7 @@ export const siteCopy = {
     intro:
       "Hybrid Funding supports multiple trading environments so you can choose the setup that best matches your market and workflow.",
     platformLine:
-      "Trade now with cTrader, Match-Trader, DXtrade, and Rithmic for futures. Tradovate support coming soon.",
+      "Trade now with cTrader, Match-Trader, DXtrade, Rithmic for futures, and GooeyPro for S&P 100 equities. Tradovate support coming soon for futures traders.",
   },
 
   howItWorks: {
@@ -87,7 +87,7 @@ export const siteCopy = {
         number: 1,
         title: "Choose Your Funding Program",
         description:
-          "Pick from 1-Step, 2-Step, 3-Step, or Instant Funding based on your goals and risk profile.",
+          "Pick from 1-Step, 2-Step, 3-Step, Instant Funding, or Single Session Equities based on your goals and risk profile.",
       },
       {
         number: 2,
@@ -167,12 +167,12 @@ export const siteCopy = {
       {
         title: "Choose a Program",
         description:
-          "Compare our 1-Step, 2-Step, 3-Step, and Instant Funding options. Each model offers different evaluation structures, drawdown limits, and pricing to match your trading approach.",
+          "Compare our 1-Step, 2-Step, 3-Step, Instant Funding, and Single Session Equities options. Each model offers different evaluation structures, drawdown limits, and pricing to match your trading approach.",
       },
       {
         title: "Select Your Platform",
         description:
-          "Trade on cTrader, Match-Trader, or DXtrade for forex and crypto. Choose Rithmic for futures. Pick the environment that matches your market and workflow.",
+          "Trade on cTrader, Match-Trader, or DXtrade for forex and crypto. Choose Rithmic for futures (Tradovate coming soon). Choose GooeyPro for S&P 100 Single Session Equities. Pick the environment that matches your market and workflow.",
       },
       {
         title: "Complete Your Evaluation",
